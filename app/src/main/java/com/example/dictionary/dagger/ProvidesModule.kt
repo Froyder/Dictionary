@@ -1,10 +1,15 @@
 package com.example.dictionary.dagger
 
+import androidx.lifecycle.MutableLiveData
 import com.example.dictionary.networkstatus.NetworkStatusInterface
 import com.example.dictionary.model.datasource.*
+import com.example.dictionary.view.viewmodel.ListFragmentViewModel
+import com.example.dictionary.view.viewmodel.ViewModelFactory
+import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
+import javax.inject.Singleton
 
 @Module
 interface ProvidesModule {
@@ -30,5 +35,10 @@ interface ProvidesModule {
                                  localDataSource: LocalDataSourceInterface
         )
             : DataProviderInterface = DataProvider(networkStatus, remoteDataSource, localDataSource)
+
+        @Singleton
+        @Provides
+        fun provideViewModelFactory (dataProvider: DataProviderInterface)
+                : ViewModelFactory = ViewModelFactory(dataProvider)
     }
 }

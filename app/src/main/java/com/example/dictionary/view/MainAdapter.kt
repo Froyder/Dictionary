@@ -1,4 +1,4 @@
-package com.example.dictionary.presenter
+package com.example.dictionary.view
 
 import android.view.LayoutInflater
 import android.view.View
@@ -53,4 +53,5 @@ class MainAdapter(
     interface OnListItemClickListener {
         fun onItemClick(data: DataModel)
     }
+
 }

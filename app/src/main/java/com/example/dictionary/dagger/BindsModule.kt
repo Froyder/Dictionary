@@ -13,4 +13,5 @@ interface BindsModule {
 
     @ContributesAndroidInjector
     fun bindListFragment(): ListFragment
+
 }
