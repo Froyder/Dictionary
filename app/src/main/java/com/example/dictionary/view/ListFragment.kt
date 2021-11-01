@@ -35,9 +35,7 @@ class ListFragment : BaseFragment(), ListFragmentView {
         savedInstanceState: Bundle?
     ): View {
         _binding = ListLayoutBinding.inflate(inflater, container, false)
-
         listFragmentViewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
-
         return viewBinding.root
     }
 
@@ -51,7 +49,6 @@ class ListFragment : BaseFragment(), ListFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewBinding.searchButton.setOnClickListener { onSearchButtonClicked() }
     }
 
@@ -97,5 +94,4 @@ class ListFragment : BaseFragment(), ListFragmentView {
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(viewBinding.editText.windowToken, 0)
     }
-
 }

@@ -15,14 +15,6 @@ import javax.inject.Inject
 abstract class BaseFragment : Fragment(), HasAndroidInjector {
 
     @Inject
-    lateinit var appContext: Context
-    @Inject
-    lateinit var networkStatus: NetworkStatusInterface
-    @Inject
-    lateinit var dataProvider: DataProvider
-    @Inject
-    lateinit var presentersFactory: PresentersFactory
-    @Inject
     lateinit var viewModelFactory: ViewModelFactory
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>

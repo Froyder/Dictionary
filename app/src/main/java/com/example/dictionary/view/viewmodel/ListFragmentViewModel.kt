@@ -7,6 +7,7 @@ import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.datasource.DataProviderInterface
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 import javax.inject.Inject
 
 class ListFragmentViewModel @Inject constructor
@@ -25,7 +26,7 @@ class ListFragmentViewModel @Inject constructor
                 .subscribe ({
                     _mutableLiveData.postValue(it) },
                     {
-                        println("An error occurred: $it")
+                        Timber.i("Timber talks: An error occurred: $it")
                     })
         )
     }

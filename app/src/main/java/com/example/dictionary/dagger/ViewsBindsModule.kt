@@ -6,7 +6,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-interface BindsModule {
+interface ViewsBindsModule {
 
     @ContributesAndroidInjector
     fun bindMainActivity(): MainActivity

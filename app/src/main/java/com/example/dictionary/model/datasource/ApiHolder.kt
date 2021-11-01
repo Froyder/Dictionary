@@ -8,6 +8,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+private const val BASE_URL = "https://dictionary.skyeng.ru/api/public/v1/"
+
 class ApiHolder {
 
     val api: DataEndPoints by lazy {
@@ -16,7 +18,7 @@ class ApiHolder {
             .create()
 
         Retrofit.Builder()
-            .baseUrl("https://dictionary.skyeng.ru/api/public/v1/")
+            .baseUrl(BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .client(createOkHttpClient(DataInterceptor))

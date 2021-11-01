@@ -13,11 +13,6 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity(), HasAndroidInjector {
 
     @Inject
-    lateinit var appContext: Context
-    @Inject
-    lateinit var networkStatus: NetworkStatusInterface
-
-    @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
