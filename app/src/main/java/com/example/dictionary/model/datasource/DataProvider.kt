@@ -5,6 +5,7 @@ import com.example.dictionary.model.data.AppState
 import com.example.dictionary.networkstatus.NetworkStatusInterface
 import io.reactivex.Observable
 import timber.log.Timber
+
 import javax.inject.Inject
 
 class DataProvider @Inject constructor(
