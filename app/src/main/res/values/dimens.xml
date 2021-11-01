@@ -21,4 +21,5 @@
     <dimen name="text_size_large">25sp</dimen>
 
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
+    <dimen name="progress_bar">60dp</dimen>
 </resources>
