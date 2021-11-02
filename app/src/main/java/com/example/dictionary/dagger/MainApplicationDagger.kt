@@ -6,15 +6,14 @@ import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber
 
-class MainApplication: DaggerApplication() {
+class MainApplicationDagger: DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
         Timber.plant(Timber.DebugTree())
     }
 
-    override fun applicationInjector(): AndroidInjector<MainApplication> =
+    override fun applicationInjector(): AndroidInjector<MainApplicationDagger> =
         DaggerMainComponent.builder()
             .withContext(applicationContext)
             .withSharedPrefs(applicationContext.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE))

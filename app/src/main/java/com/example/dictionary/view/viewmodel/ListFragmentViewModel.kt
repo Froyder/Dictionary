@@ -4,18 +4,20 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dictionary.model.data.AppState
-import com.example.dictionary.model.datasource.DataProviderInterface
+import com.example.dictionary.model.datasource.DataProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import timber.log.Timber
-import javax.inject.Inject
 
-class ListFragmentViewModel @Inject constructor
-    (private val dataProvider: DataProviderInterface) : ViewModel() {
+class ListFragmentViewModel : ViewModel(), KoinComponent {
+
+    private val dataProvider: DataProvider by inject()
 
     private val _mutableLiveData = MutableLiveData<AppState>()
     val mutableLiveData: LiveData<AppState>
-        get() = _mutableLiveData
+    get() = _mutableLiveData
 
     private val compositeDisposable = CompositeDisposable()
 

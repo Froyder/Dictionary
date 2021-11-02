@@ -1,9 +1,10 @@
 package com.example.dictionary.view
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.dictionary.R
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

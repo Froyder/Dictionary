@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(private val apiHolder: ApiHolder)
+class RemoteDataSource (private val apiHolder: ApiHolder)
     : RemoteDataSourceInterface {
 
     override fun getDataFromRemoteSource(word: String): Observable<AppState> {

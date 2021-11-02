@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
@@ -16,15 +16,13 @@ import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
 
-class ListFragment : BaseFragment(), ListFragmentView {
+class ListFragment : Fragment(), ListFragmentView {
 
     companion object Factory {
         fun newInstance(): Fragment = ListFragment()
     }
 
-    private val listFragmentViewModel by lazy {
-        ViewModelProvider(requireActivity(), viewModelFactory).get(ListFragmentViewModel::class.java)
-    }
+    private val viewModel: ListFragmentViewModel by activityViewModels()
 
     private var _binding: ListLayoutBinding? = null
     private val viewBinding get() = _binding!!
@@ -35,7 +33,8 @@ class ListFragment : BaseFragment(), ListFragmentView {
         savedInstanceState: Bundle?
     ): View {
         _binding = ListLayoutBinding.inflate(inflater, container, false)
-        listFragmentViewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
+
+        viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
         return viewBinding.root
     }
 
@@ -53,7 +52,7 @@ class ListFragment : BaseFragment(), ListFragmentView {
     }
 
     private fun onSearchButtonClicked() {
-        listFragmentViewModel.getData(viewBinding.editText.text.toString())
+        viewModel.getData(viewBinding.editText.text.toString())
         hideKeyboard()
     }
 

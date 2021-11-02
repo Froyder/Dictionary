@@ -7,7 +7,7 @@ import io.reactivex.Observable
 import timber.log.Timber
 import javax.inject.Inject
 
-class DataProvider @Inject constructor(
+class DataProvider (
     private val networkStatus: NetworkStatusInterface,
     private val remoteDataSource: RemoteDataSourceInterface,
     private val localDataSource: LocalDataSourceInterface
