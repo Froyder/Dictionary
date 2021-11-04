@@ -8,26 +8,34 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dictionary.model.data.AppState
-import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.presenter.MainAdapter
-import com.example.dictionary.presenter.ListPresenter
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
+import com.example.dictionary.model.data.AppState
+import com.example.dictionary.model.data.DataModel
+import com.example.dictionary.view.viewmodel.ListFragmentViewModel
 
-class ListFragment: BaseFragment(), ListFragmentView {
+class ListFragment : BaseFragment(), ListFragmentView {
 
-    companion object Factory { fun newInstance(): Fragment = ListFragment() }
+    companion object Factory {
+        fun newInstance(): Fragment = ListFragment()
+    }
 
-    private lateinit var presenter : ListPresenter
+    private val listFragmentViewModel by lazy {
+        ViewModelProvider(requireActivity(), viewModelFactory).get(ListFragmentViewModel::class.java)
+    }
 
     private var _binding: ListLayoutBinding? = null
     private val viewBinding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = ListLayoutBinding.inflate(inflater, container, false)
-        presenter = presentersFactory.createListPresenter()
+        listFragmentViewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
         return viewBinding.root
     }
 
@@ -41,14 +49,12 @@ class ListFragment: BaseFragment(), ListFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        presenter.onAttach(this)
         viewBinding.searchButton.setOnClickListener { onSearchButtonClicked() }
     }
 
-    private fun onSearchButtonClicked () {
-        presenter.getData(viewBinding.editText.text.toString())
-        hideKeyboard ()
+    private fun onSearchButtonClicked() {
+        listFragmentViewModel.getData(viewBinding.editText.text.toString())
+        hideKeyboard()
     }
 
     override fun renderData(appState: AppState) {
@@ -82,15 +88,10 @@ class ListFragment: BaseFragment(), ListFragmentView {
         Toast.makeText(context, "An error occurred: $error", Toast.LENGTH_SHORT).show()
     }
 
-    private fun hideKeyboard () {
+    private fun hideKeyboard() {
         viewBinding.editText.clearFocus()
         val keyboard =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(viewBinding.editText.windowToken, 0)
-    }
-
-    override fun onDestroy() {
-        presenter.onDetach()
-        super.onDestroy()
     }
 }

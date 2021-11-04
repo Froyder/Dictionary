@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:id="@+id/success_linear_layout"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="@dimen/list_frame_margin_bottom"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent">
@@ -32,11 +32,11 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editText"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/edit_text_width"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sumana"
         android:hint="@string/search_hint"
-        android:textSize="20sp"
+        android:textSize="@dimen/edit_text_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

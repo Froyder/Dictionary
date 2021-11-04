@@ -22,4 +22,9 @@
 
     <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
     <dimen name="progress_bar">60dp</dimen>
+
+    <dimen name="edit_text_width">200dp</dimen>
+    <dimen name="edit_text_text_size">20sp</dimen>
+    <dimen name="list_frame_margin_bottom">100dp</dimen>
+
 </resources>

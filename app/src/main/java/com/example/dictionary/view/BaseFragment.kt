@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.example.dictionary.model.datasource.DataProvider
 import com.example.dictionary.networkstatus.NetworkStatusInterface
 import com.example.dictionary.presenter.PresentersFactory
+import com.example.dictionary.view.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -14,13 +15,7 @@ import javax.inject.Inject
 abstract class BaseFragment : Fragment(), HasAndroidInjector {
 
     @Inject
-    lateinit var appContext: Context
-    @Inject
-    lateinit var networkStatus: NetworkStatusInterface
-    @Inject
-    lateinit var dataProvider: DataProvider
-    @Inject
-    lateinit var presentersFactory: PresentersFactory
+    lateinit var viewModelFactory: ViewModelFactory
     @Inject
     lateinit var androidInjector: DispatchingAndroidInjector<Any>
 
