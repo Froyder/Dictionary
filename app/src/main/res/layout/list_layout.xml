@@ -8,7 +8,7 @@
 
     <FrameLayout
         android:id="@+id/success_linear_layout"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="@dimen/list_frame_margin_bottom"
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="match_parent">
@@ -19,13 +19,24 @@
             android:layout_height="match_parent"/>
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="@dimen/progress_bar"
+        android:layout_height="@dimen/progress_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ProgressBar>
+
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editText"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/edit_text_width"
         android:layout_height="wrap_content"
         android:fontFamily="@font/sumana"
         android:hint="@string/search_hint"
-        android:textSize="20sp"
+        android:textSize="@dimen/edit_text_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +44,7 @@
 
     </com.google.android.material.textfield.TextInputEditText>
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +52,7 @@
         android:src="@drawable/ic_baseline_search_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText"></ImageButton>
+        app:layout_constraintStart_toEndOf="@+id/editText">
+    </androidx.appcompat.widget.AppCompatImageButton>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
