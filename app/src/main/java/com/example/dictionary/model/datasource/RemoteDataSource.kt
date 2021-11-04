@@ -1,16 +1,11 @@
 package com.example.dictionary.model.datasource
 
-import com.example.dictionary.model.data.AppState
-import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
-import javax.inject.Inject
+import com.example.dictionary.model.data.DataModel
 
 class RemoteDataSource (private val apiHolder: ApiHolder)
     : RemoteDataSourceInterface {
 
-    override fun getDataFromRemoteSource(word: String): Observable<AppState> {
-        return apiHolder.api.search(word)
-            .subscribeOn(Schedulers.io())
-            .map { AppState.Success(it) }
+    override suspend fun getDataFromRemoteSource(word: String): List<DataModel> {
+        return apiHolder.api.searchAsync(word).await()
     }
 }

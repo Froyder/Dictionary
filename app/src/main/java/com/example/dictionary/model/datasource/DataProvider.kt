@@ -1,11 +1,9 @@
 package com.example.dictionary.model.datasource
 
 import android.annotation.SuppressLint
-import com.example.dictionary.model.data.AppState
+import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.networkstatus.NetworkStatusInterface
-import io.reactivex.Observable
 import timber.log.Timber
-import javax.inject.Inject
 
 class DataProvider (
     private val networkStatus: NetworkStatusInterface,
@@ -15,7 +13,7 @@ class DataProvider (
 
     private var isOnline = false
 
-    override fun getDataFromSource(word: String): Observable<AppState> {
+    override suspend fun getDataFromSource(word: String): List<DataModel> {
         getNetworkStatus()
         return if (isOnline) {
             remoteDataSource.getDataFromRemoteSource(word)

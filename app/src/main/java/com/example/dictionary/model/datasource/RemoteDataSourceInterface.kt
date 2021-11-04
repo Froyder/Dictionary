@@ -1,10 +1,9 @@
 package com.example.dictionary.model.datasource
 
-import com.example.dictionary.model.data.AppState
-import io.reactivex.Observable
+import com.example.dictionary.model.data.DataModel
 
 interface RemoteDataSourceInterface {
 
-    fun getDataFromRemoteSource(word: String) : Observable<AppState>
+    suspend fun getDataFromRemoteSource(word: String) : List<DataModel>
 
 }

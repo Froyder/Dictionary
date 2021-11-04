@@ -19,15 +19,15 @@ class ListPresenter @AssistedInject constructor(
     private val compositeDisposable = CompositeDisposable()
 
     override fun getData(word: String) {
-        compositeDisposable.addAll(
-            dataProvider.getDataFromSource(word)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    currentView?.renderData(it) },
-                    {
-                        println("An error occurred: $it")
-                    })
-        )
+//        compositeDisposable.addAll(
+//            dataProvider.getDataFromSource(word)
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe ({
+//                    currentView?.renderData(it) },
+//                    {
+//                        println("An error occurred: $it")
+//                    })
+//        )
     }
 
     override fun onDetach() {

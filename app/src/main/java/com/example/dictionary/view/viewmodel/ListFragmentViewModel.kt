@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.datasource.DataProvider
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import timber.log.Timber
@@ -17,23 +16,35 @@ class ListFragmentViewModel : ViewModel(), KoinComponent {
 
     private val _mutableLiveData = MutableLiveData<AppState>()
     val mutableLiveData: LiveData<AppState>
-    get() = _mutableLiveData
+        get() = _mutableLiveData
 
-    private val compositeDisposable = CompositeDisposable()
+    private val viewModelScope = CoroutineScope(
+        Dispatchers.IO
+                + SupervisorJob()
+                + CoroutineExceptionHandler { _, throwable ->
+            handleError(throwable)
+        })
+
+    private var job: Job? = null
 
     fun getData(word: String) {
-        compositeDisposable.addAll(
-            dataProvider.getDataFromSource(word)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({
-                    _mutableLiveData.postValue(it) },
-                    {
-                        Timber.i("Timber talks: An error occurred: $it")
-                    })
-        )
+        _mutableLiveData.value = AppState.Loading(null)
+
+        job?.cancel()
+        job = viewModelScope.launch {
+            val dataList = dataProvider.getDataFromSource(word)
+            _mutableLiveData.postValue(AppState.Success(dataList))
+        }
+    }
+
+    private fun handleError(error: Throwable) {
+        _mutableLiveData.postValue(AppState.Error(error))
+        Timber.i("Timber talks: An error occurred: $error")
     }
 
     override fun onCleared() {
-        compositeDisposable.clear()
+        _mutableLiveData.value = AppState.Success(null)
+        viewModelScope.cancel()
+        super.onCleared()
     }
 }
