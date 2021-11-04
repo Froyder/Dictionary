@@ -16,8 +16,12 @@ class MainApplicationDagger: DaggerApplication() {
     override fun applicationInjector(): AndroidInjector<MainApplicationDagger> =
         DaggerMainComponent.builder()
             .withContext(applicationContext)
-            .withSharedPrefs(applicationContext.getSharedPreferences("SETTINGS", Context.MODE_PRIVATE))
+            .withSharedPrefs(applicationContext.getSharedPreferences(SETTINGS, Context.MODE_PRIVATE))
             .withNetworkStatus(NetworkStatus(applicationContext))
             .build()
+
+    companion object {
+        private const val SETTINGS = "SETTINGS"
+    }
 
 }
