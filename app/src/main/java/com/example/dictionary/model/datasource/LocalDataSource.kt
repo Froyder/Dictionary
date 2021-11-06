@@ -13,8 +13,8 @@ class LocalDataSource : LocalDataSourceInterface {
 
     private fun returnLocalListAsync(): Deferred<List<DataModel>> =
         CoroutineScope(Dispatchers.IO).async {
-            delay(1500)
-            return@async list
+            delay(DELAY_TIME)
+            list
         }
 
     private val list: List<DataModel> = listOf(
@@ -50,4 +50,7 @@ class LocalDataSource : LocalDataSourceInterface {
         )
     )
 
+    companion object {
+        private const val DELAY_TIME: Long = 1500
+    }
 }

@@ -16,9 +16,8 @@ val application = module {
 }
 
 val listFragment = module {
-    factory { DataProvider(
-        networkStatus = get(),
-        remoteDataSource = get(),
-        localDataSource = get()) }
+    factory {
+        DataProvider(networkStatus = get(), remoteDataSource = get(), localDataSource = get())
+    }
     viewModel { ListFragmentViewModel() }
 }

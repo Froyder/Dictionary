@@ -18,10 +18,6 @@ import com.example.dictionary.view.viewmodel.ListFragmentViewModel
 
 class ListFragment : Fragment(), ListFragmentView {
 
-    companion object Factory {
-        fun newInstance(): Fragment = ListFragment()
-    }
-
     private val viewModel: ListFragmentViewModel by activityViewModels()
 
     private var _binding: ListLayoutBinding? = null
@@ -33,8 +29,6 @@ class ListFragment : Fragment(), ListFragmentView {
         savedInstanceState: Bundle?
     ): View {
         _binding = ListLayoutBinding.inflate(inflater, container, false)
-
-        viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
         return viewBinding.root
     }
 
@@ -48,6 +42,9 @@ class ListFragment : Fragment(), ListFragmentView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
+
         viewBinding.searchButton.setOnClickListener { onSearchButtonClicked() }
     }
 
@@ -92,5 +89,9 @@ class ListFragment : Fragment(), ListFragmentView {
         val keyboard =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(viewBinding.editText.windowToken, 0)
+    }
+
+    companion object Factory {
+        fun newInstance(): Fragment = ListFragment()
     }
 }
