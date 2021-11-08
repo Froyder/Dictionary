@@ -14,6 +14,7 @@ import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.data.DataModel
+import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
 
 class ListFragment : Fragment(), ListFragmentView {
@@ -36,7 +37,18 @@ class ListFragment : Fragment(), ListFragmentView {
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
         object : MainAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(context, data.text, Toast.LENGTH_SHORT).show()
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(
+                        R.id.container,
+                        DetailsFragment.newInstance(
+                            data.text,
+                            toStringConverter(data.meanings),
+                            data.meanings?.get(0)?.imageUrl
+                        )
+                    )
+                    .addToBackStack("")
+                    .commit()
             }
         }
 

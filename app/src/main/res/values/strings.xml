@@ -7,4 +7,5 @@
     <string name="button_search">Search</string>
     <string name="search_hint">Type a word here…</string>
     <string name="delete_description">X</string>
+    <string name="image_stub">image</string>
 </resources>
