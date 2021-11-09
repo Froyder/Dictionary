@@ -14,8 +14,12 @@ import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.data.DataModel
+import com.example.dictionary.model.datasource.database.DictionaryDatabase
 import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import java.util.concurrent.Executors
 
 class ListFragment : Fragment(), ListFragmentView {
 
@@ -33,9 +37,9 @@ class ListFragment : Fragment(), ListFragmentView {
         return viewBinding.root
     }
 
-    private var adapter: MainAdapter? = null
-    private val onListItemClickListener: MainAdapter.OnListItemClickListener =
-        object : MainAdapter.OnListItemClickListener {
+    private var adapter: ListAdapter? = null
+    private val onListItemClickListener: ListAdapter.OnListItemClickListener =
+        object : ListAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
                 parentFragmentManager
                     .beginTransaction()
@@ -58,6 +62,13 @@ class ListFragment : Fragment(), ListFragmentView {
         viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
 
         viewBinding.searchButton.setOnClickListener { onSearchButtonClicked() }
+
+        viewBinding.historyButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, HistoryFragment.newInstance())
+                .addToBackStack("")
+                .commit()
+        }
     }
 
     private fun onSearchButtonClicked() {
@@ -74,10 +85,7 @@ class ListFragment : Fragment(), ListFragmentView {
                     onErrorOccurred(getString(R.string.empty_server_response_on_success))
                 } else {
                     if (adapter == null) {
-                        viewBinding.mainActivityRecyclerview.layoutManager =
-                            LinearLayoutManager(context)
-                        viewBinding.mainActivityRecyclerview.adapter =
-                            MainAdapter(onListItemClickListener, dataModel)
+                        loadOnSuccess(dataModel)
                     } else {
                         adapter!!.setData(dataModel)
                     }
@@ -90,6 +98,13 @@ class ListFragment : Fragment(), ListFragmentView {
                 onErrorOccurred(appState.error.message)
             }
         }
+    }
+
+    private fun loadOnSuccess(dataModel: List<DataModel>) {
+        viewBinding.mainActivityRecyclerview.layoutManager =
+            LinearLayoutManager(context)
+        viewBinding.mainActivityRecyclerview.adapter =
+            ListAdapter(onListItemClickListener, dataModel)
     }
 
     private fun onErrorOccurred(error: String?) {

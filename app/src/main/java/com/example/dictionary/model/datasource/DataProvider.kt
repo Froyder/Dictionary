@@ -16,7 +16,9 @@ class DataProvider (
     override suspend fun getDataFromSource(word: String): List<DataModel> {
         getNetworkStatus()
         return if (isOnline) {
-            remoteDataSource.getDataFromRemoteSource(word)
+            val list = remoteDataSource.getDataFromRemoteSource(word)
+            localDataSource.addWordToHistory(list[0])
+            list
         } else {
             localDataSource.getDataFromLocalSource()
         }

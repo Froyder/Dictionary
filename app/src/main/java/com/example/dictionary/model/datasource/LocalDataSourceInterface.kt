@@ -5,5 +5,6 @@ import com.example.dictionary.model.data.DataModel
 interface LocalDataSourceInterface {
 
     suspend fun getDataFromLocalSource() : List<DataModel>
+    suspend fun addWordToHistory(word: DataModel)
 
 }

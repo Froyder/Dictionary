@@ -40,8 +40,8 @@ class MainAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.findViewById<TextView>(R.id.header_textview_recycler_item).text = data.text
-                itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text =
-                    toStringConverter(data.meanings)
+//                itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text =
+//                    toStringConverter(data.meanings)
                 itemView.setOnClickListener { openInNewWindow(data) }
             }
         }

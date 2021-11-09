@@ -2,6 +2,7 @@ package com.example.dictionary.koin
 
 import android.app.Application
 import com.example.dictionary.dagger.application
+import com.example.dictionary.dagger.historyFragment
 import com.example.dictionary.dagger.listFragment
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -15,7 +16,7 @@ class MainApplicationKoin : Application() {
         startKoin {
             printLogger()
             androidContext(applicationContext)
-            modules(listOf(application, listFragment))
+            modules(listOf(application, listFragment, historyFragment))
         }
 
         Timber.plant(Timber.DebugTree())

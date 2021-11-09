@@ -1,5 +1,7 @@
 package com.example.dictionary
 
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.dictionary.model.data.Meanings
 
 fun toStringConverter(meanings: List<Meanings>?): String {

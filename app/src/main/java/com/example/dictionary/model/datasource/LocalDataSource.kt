@@ -3,12 +3,23 @@ package com.example.dictionary.model.datasource
 import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.model.data.Meanings
 import com.example.dictionary.model.data.Translation
+import com.example.dictionary.model.datasource.database.DictionaryDatabase
 import kotlinx.coroutines.*
+import org.koin.android.ext.android.inject
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-class LocalDataSource : LocalDataSourceInterface {
+class LocalDataSource : LocalDataSourceInterface, KoinComponent {
+
+    private val db: DictionaryDatabase by inject()
+    private val dictionaryDao = db.dictionaryDao()
 
     override suspend fun getDataFromLocalSource(): List<DataModel> {
         return returnLocalListAsync().await()
+    }
+
+    override suspend fun addWordToHistory(word: DataModel) {
+        dictionaryDao.updateWord(word)
     }
 
     private fun returnLocalListAsync(): Deferred<List<DataModel>> =
