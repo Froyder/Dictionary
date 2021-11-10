@@ -4,7 +4,8 @@ import com.example.dictionary.model.data.DataModel
 
 interface LocalDataSourceInterface {
 
-    suspend fun getDataFromLocalSource() : List<DataModel>
+    suspend fun onLoadingDataError() : List<DataModel>
     suspend fun addWordToHistory(word: DataModel)
+    suspend fun getWordFromLocalStorage(word: String): DataModel
 
 }

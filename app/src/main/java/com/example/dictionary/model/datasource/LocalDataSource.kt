@@ -3,6 +3,7 @@ package com.example.dictionary.model.datasource
 import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.model.data.Meanings
 import com.example.dictionary.model.data.Translation
+import com.example.dictionary.model.datasource.LocalDataSource.Companion.MAIN_ERROR_MESSAGE
 import com.example.dictionary.model.datasource.database.DictionaryDatabase
 import kotlinx.coroutines.*
 import org.koin.android.ext.android.inject
@@ -14,54 +15,22 @@ class LocalDataSource : LocalDataSourceInterface, KoinComponent {
     private val db: DictionaryDatabase by inject()
     private val dictionaryDao = db.dictionaryDao()
 
-    override suspend fun getDataFromLocalSource(): List<DataModel> {
-        return returnLocalListAsync().await()
-    }
-
     override suspend fun addWordToHistory(word: DataModel) {
         dictionaryDao.updateWord(word)
     }
 
-    private fun returnLocalListAsync(): Deferred<List<DataModel>> =
-        CoroutineScope(Dispatchers.IO).async {
-            delay(DELAY_TIME)
-            list
-        }
+    override suspend fun getWordFromLocalStorage(word: String): DataModel {
+        return dictionaryDao.getWordFromDB(word)
+    }
 
-    private val list: List<DataModel> = listOf(
-        DataModel(
-            "One", listOf(
-                Meanings(Translation("один"), "URL"),
-            )
-        ),
-        DataModel(
-            "Two", listOf(
-                Meanings(Translation("два"), "URL")
-            )
-        ),
-        DataModel(
-            "Three", listOf(
-                Meanings(Translation("три"), "URL")
-            )
-        ),
-        DataModel(
-            "Four", listOf(
-                Meanings(Translation("четыре"), "URL")
-            )
-        ),
-        DataModel(
-            "Five", listOf(
-                Meanings(Translation("пять"), "URL")
-            )
-        ),
-        DataModel(
-            "Six", listOf(
-                Meanings(Translation("шесть"), "URL")
-            )
-        )
-    )
+    override suspend fun onLoadingDataError(): List<DataModel> {
+        return listOf(DataModel(HEADER_ERROR_MESSAGE, listOf(
+            Meanings(Translation(MAIN_ERROR_MESSAGE), URL_ERROR))))
+    }
 
     companion object {
-        private const val DELAY_TIME: Long = 1500
+        private const val HEADER_ERROR_MESSAGE = "Loading error"
+        private const val MAIN_ERROR_MESSAGE = "You are offline and there is no data for yor request in local storage"
+        private const val URL_ERROR = ""
     }
 }

@@ -32,6 +32,7 @@
             style="@style/BaseTextStyle"
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_height="wrap_content"
+            android:lineSpacingExtra="-25dp"
             tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
         <com.example.dictionary.view.EquilateralImageView

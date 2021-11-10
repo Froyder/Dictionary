@@ -8,4 +8,5 @@
     <string name="search_hint">Type a word here…</string>
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>
+    <string name="history_header">Earlier you have searched for...</string>
 </resources>

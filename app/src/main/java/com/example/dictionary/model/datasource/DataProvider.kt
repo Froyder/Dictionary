@@ -13,14 +13,26 @@ class DataProvider (
 
     private var isOnline = false
 
+    private lateinit var list: List<DataModel>
+
     override suspend fun getDataFromSource(word: String): List<DataModel> {
+        list = listOf(localDataSource.getWordFromLocalStorage(word))
+        return if (list[0] != null) {
+            Timber.i(TIMBER_LOCAL_DATA)
+            list
+        } else tryToLoadRemoteData(word)
+    }
+
+    private suspend fun tryToLoadRemoteData(word: String): List<DataModel>{
         getNetworkStatus()
         return if (isOnline) {
-            val list = remoteDataSource.getDataFromRemoteSource(word)
+            list = remoteDataSource.getDataFromRemoteSource(word)
             localDataSource.addWordToHistory(list[0])
+            Timber.i(TIMBER_REMOTE_DATA)
             list
         } else {
-            localDataSource.getDataFromLocalSource()
+            Timber.i(TIMBER_ERROR_MESSAGE)
+            localDataSource.onLoadingDataError()
         }
     }
 
@@ -36,4 +48,9 @@ class DataProvider (
             })
     }
 
+    companion object {
+        private const val TIMBER_ERROR_MESSAGE = "Timber talks: you are offline and there is no data for yor request in local storage"
+        private const val TIMBER_LOCAL_DATA = "Timber talks: data was loaded from local storage"
+        private const val TIMBER_REMOTE_DATA = "Timber talks: data was loaded from remote storage"
+    }
 }
