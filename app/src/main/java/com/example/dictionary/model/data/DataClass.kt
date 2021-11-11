@@ -11,7 +11,9 @@ data class DataModel(
     @ColumnInfo(name = "text")
     @field:SerializedName("text") val text: String,
     @ColumnInfo(name = "meanings")
-    @field:SerializedName("meanings") val meanings: List<Meanings>?
+    @field:SerializedName("meanings") val meanings: List<Meanings>?,
+    @ColumnInfo(name = "isFavorite")
+    @field:SerializedName("isFavorite") val isFavorite: String? = "false"
 )
 
 class Meanings(

@@ -8,25 +8,24 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
-import com.example.dictionary.databinding.HistoryLayoutBinding
+import com.example.dictionary.databinding.FavoritesLayoutBinding
 import com.example.dictionary.model.data.DataModel
 import com.example.dictionary.toStringConverter
-import com.example.dictionary.view.viewmodel.HistoryViewModel
-import kotlinx.coroutines.*
+import com.example.dictionary.view.viewmodel.FavoritesViewModel
 
-class HistoryFragment: Fragment() {
+class FavoritesFragment: Fragment() {
 
-    private var _binding: HistoryLayoutBinding? = null
+    private var _binding: FavoritesLayoutBinding? = null
     private val viewBinding get() = _binding!!
 
-    private val viewModel: HistoryViewModel by activityViewModels()
+    private val viewModel: FavoritesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = HistoryLayoutBinding.inflate(inflater, container, false)
+        _binding = FavoritesLayoutBinding.inflate(inflater, container, false)
         return viewBinding.root
     }
 
@@ -47,7 +46,7 @@ class HistoryFragment: Fragment() {
                     .addToBackStack("")
                     .commit()
             }
-    }
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,14 +57,15 @@ class HistoryFragment: Fragment() {
 
     private fun setAdapter(list: List<DataModel>) {
         if (adapter == null) {
-            viewBinding.historyRecyclerview.layoutManager = LinearLayoutManager(context)
-            viewBinding.historyRecyclerview.adapter = ListAdapter(onListItemClickListener, list)
+            viewBinding.favoritesRecyclerview.layoutManager = LinearLayoutManager(context)
+            viewBinding.favoritesRecyclerview.adapter = ListAdapter(onListItemClickListener, list)
         } else {
             adapter!!.setData(list)
         }
     }
 
     companion object Factory {
-        fun newInstance(): Fragment = HistoryFragment()
+        fun newInstance(): Fragment = FavoritesFragment()
     }
+
 }

@@ -48,7 +48,7 @@ class ListFragment : Fragment(), ListFragmentView {
                         DetailsFragment.newInstance(
                             data.text,
                             toStringConverter(data.meanings),
-                            data.meanings?.get(0)?.imageUrl
+                            data.meanings?.get(0)?.imageUrl, data.isFavorite
                         )
                     )
                     .addToBackStack("")
@@ -66,6 +66,13 @@ class ListFragment : Fragment(), ListFragmentView {
         viewBinding.historyButton.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.container, HistoryFragment.newInstance())
+                .addToBackStack("")
+                .commit()
+        }
+
+        viewBinding.favoritesButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, FavoritesFragment.newInstance())
                 .addToBackStack("")
                 .commit()
         }

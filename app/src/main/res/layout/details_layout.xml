@@ -26,6 +26,16 @@
             style="@style/HeaderTextStyle"
             tools:text="Header"/>
 
+        <ImageButton
+            android:id="@+id/favorite_ib"
+            android:layout_width="25dp"
+            android:background="@null"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:src="@drawable/ic_baseline_favorite_border_24">
+        </ImageButton>
+
         <TextView
             android:id="@+id/description_textview"
             android:layout_width="wrap_content"

@@ -15,10 +15,6 @@ class LocalDataSource : LocalDataSourceInterface, KoinComponent {
     private val db: DictionaryDatabase by inject()
     private val dictionaryDao = db.dictionaryDao()
 
-    override suspend fun addWordToHistory(word: DataModel) {
-        dictionaryDao.updateWord(word)
-    }
-
     override suspend fun getWordFromLocalStorage(word: String): DataModel {
         return dictionaryDao.getWordFromDB(word)
     }
@@ -26,6 +22,24 @@ class LocalDataSource : LocalDataSourceInterface, KoinComponent {
     override suspend fun onLoadingDataError(): List<DataModel> {
         return listOf(DataModel(HEADER_ERROR_MESSAGE, listOf(
             Meanings(Translation(MAIN_ERROR_MESSAGE), URL_ERROR))))
+    }
+
+    override suspend fun getFavoritesListFromLocalStorage(): List<DataModel> {
+        return dictionaryDao.getFavoritesListFromDB()
+    }
+
+    override suspend fun getHistoryListFromDB(): List<DataModel> {
+        return dictionaryDao.getWordListFromDB()
+    }
+
+    override suspend fun addListToLocalStorage(list: List<DataModel>) {
+        dictionaryDao.updateList(list)
+    }
+
+    override suspend fun updateWordInDB(vararg arguments: String) {
+        val text = arguments[0]
+        val status = arguments[1]
+        dictionaryDao.changeWordStatus(text, status)
     }
 
     companion object {

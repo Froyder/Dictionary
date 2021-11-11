@@ -9,4 +9,5 @@
     <string name="delete_description">X</string>
     <string name="image_stub">image</string>
     <string name="history_header">Earlier you have searched for...</string>
+    <string name="favorites_header">Your favorite words are...</string>
 </resources>

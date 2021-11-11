@@ -23,17 +23,29 @@ class DataProvider (
         } else tryToLoadRemoteData(word)
     }
 
+    override suspend fun addWordToFavorite(vararg arguments: String) {
+        localDataSource.updateWordInDB(*arguments)
+    }
+
+    override suspend fun getFavoritesList(): List<DataModel> {
+        return localDataSource.getFavoritesListFromLocalStorage()
+    }
+
     private suspend fun tryToLoadRemoteData(word: String): List<DataModel>{
         getNetworkStatus()
         return if (isOnline) {
             list = remoteDataSource.getDataFromRemoteSource(word)
-            localDataSource.addWordToHistory(list[0])
+            localDataSource.addListToLocalStorage(list)
             Timber.i(TIMBER_REMOTE_DATA)
             list
         } else {
             Timber.i(TIMBER_ERROR_MESSAGE)
             localDataSource.onLoadingDataError()
         }
+    }
+
+    override suspend fun getHistoryListFromLocalStorage(): List<DataModel>{
+        return localDataSource.getHistoryListFromDB()
     }
 
     @SuppressLint("CheckResult")

@@ -10,7 +10,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import timber.log.Timber
 
-class HistoryViewModel: ViewModel(), KoinComponent {
+class FavoritesViewModel: ViewModel(), KoinComponent {
 
     private val dataProvider: DataProvider by inject()
 
@@ -30,7 +30,7 @@ class HistoryViewModel: ViewModel(), KoinComponent {
     fun init() {
         job?.cancel()
         job = CoroutineScope(Dispatchers.IO).launch {
-            _mutableLiveData.postValue(dataProvider.getHistoryListFromLocalStorage())
+            _mutableLiveData.postValue(dataProvider.getFavoritesList())
         }
     }
 
