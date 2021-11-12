@@ -1,0 +1,1 @@
+E:\CodingWithFun\Kotlin\Dictionary\buildSrc\build\classes\kotlin\main\Dependencies.class;E:\CodingWithFun\Kotlin\Dictionary\buildSrc\build\classes\kotlin\main\Versions.class

@@ -46,55 +46,56 @@ android {
 }
 
 dependencies {
-    implementation ("androidx.core:core-ktx:1.7.0")
-    implementation ("androidx.appcompat:appcompat:1.3.1")
-    implementation ("com.google.android.material:material:1.4.0")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.1")
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.3.5")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.3.5")
-    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-    testImplementation ("junit:junit:")
-    androidTestImplementation ("androidx.test.ext:junit:1.1.3")
-    androidTestImplementation ("androidx.test.espresso:espresso-core:3.4.0")
+    implementation (Dependencies.ANDROID_CORE_KTX_DEP)
+    implementation (Dependencies.APPCOMPAT_DEP)
+    implementation (Dependencies.MATERIAL_DEP)
+    implementation (Dependencies.CONSTRAINTLAYOUT_DEP)
+    implementation (Dependencies.NAVIGATION_FRAGMENT_DEP)
+    implementation (Dependencies.NAVIGATION_UI)
+    implementation (Dependencies.SWIPEREFRESHLAYOUT_DEP)
+    testImplementation (Dependencies.JUNIT_DEP)
+    androidTestImplementation (Dependencies.JUNIT_TEST_EXT_DEP)
+    androidTestImplementation (Dependencies.ESPRESSO_CORE_DEP)
 
     //Kotlin
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+    implementation (Dependencies.KOTLIN_STD_DEP)
 
     // Rx-Java
-    implementation ("io.reactivex.rxjava2:rxandroid:2.1.1")
-    implementation ("io.reactivex.rxjava2:rxjava:2.2.20")
+    implementation (Dependencies.RXJAVA2_DEP)
+    implementation (Dependencies.RXJAVA2_RXANDROID_DEP)
+
 
     // Retrofit 2
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
-    implementation ("com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0")
+    implementation (Dependencies.RETROFIT2_DEP)
+    implementation (Dependencies.RETROFIT2_GSON_CONVERTER_DEP)
+    implementation (Dependencies.INTERCEPTOR_DEP)
+    implementation (Dependencies.RETROFIT2_RXJAVA2_ADAPTER_DEP)
 
     //Dagger
-    implementation ("com.google.dagger:dagger:2.37")
-    implementation ("com.google.dagger:dagger-android:2.37")
-    implementation ("com.google.dagger:dagger-android-support:2.37")
-    kapt ("com.google.dagger:dagger-compiler:2.37")
-    kapt ("com.google.dagger:dagger-android-processor:2.37")
+    implementation (Dependencies.DAGGER_DEP)
+    implementation (Dependencies.DAGGER_ANDROID_DEP)
+    implementation (Dependencies.DAGGER_ANDROID_SUPPORT_DEP)
+    kapt (Dependencies.DAGGER_COMPILER_DEP)
+    kapt (Dependencies.DAGGER_ANDROID_PROCESSOR)
 
-    implementation ("com.jakewharton.timber:timber:5.0.1")
+    //Timber
+    implementation (Dependencies.TIMBER_DEP)
 
-    implementation ("io.insert-koin:koin-core:3.1.2")
-    implementation ("io.insert-koin:koin-android:3.1.2")
-    implementation ("io.insert-koin:koin-android-compat:3.1.2")
+    //Koin
+    implementation (Dependencies.KOIN_CORE_DEP)
+    implementation (Dependencies.KOIN_ANDROID_DEP)
+    implementation (Dependencies.KOIN_ANDROID_COMPAT_DEP)
 
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1")
-    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    //Coroutines
+    implementation (Dependencies.COROUTINES_CORE_DEP)
+    implementation (Dependencies.COROUTINES_ANDROID_DEP)
+    implementation (Dependencies.COROUTINES_RETROFIT2_ADAPTER_DEP)
 
     //Coil
-    implementation ("io.coil-kt:coil:0.11.0")
+    implementation (Dependencies.COIL_DEP)
 
     //Room
-    implementation ("androidx.room:room-runtime:2.3.0")
-    kapt ("androidx.room:room-compiler:2.3.0")
-    implementation ("androidx.room:room-ktx:2.3.0")
-
-    implementation ("android.arch.persistence.room:runtime:1.1.1")
-    kapt ("android.arch.persistence.room:compiler:1.1.1")
+    implementation (Dependencies.ROOM_RUNTIME_DEP)
+    kapt (Dependencies.ROOM_COMPILER_DEP)
+    implementation (Dependencies.ROOM_KTX_DEP)
 }
