@@ -14,12 +14,8 @@ import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.model.datasource.database.DictionaryDatabase
 import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
-import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
-import java.util.concurrent.Executors
 
 class ListFragment : Fragment(), ListFragmentView {
 
