@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
 import com.example.dictionary.model.data.DataModel
 
-class MainAdapter(
+class ListAdapter(
     private var onListItemClickListener: OnListItemClickListener,
     private var data: List<DataModel>
 ) :
-    RecyclerView.Adapter<MainAdapter.RecyclerItemViewHolder>() {
+    RecyclerView.Adapter<ListAdapter.RecyclerItemViewHolder>() {
 
     fun setData(data: List<DataModel>) {
         this.data = data
@@ -35,6 +35,7 @@ class MainAdapter(
     }
 
     inner class RecyclerItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
 
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {

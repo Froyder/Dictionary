@@ -14,13 +14,14 @@ import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
 import com.example.dictionary.model.data.AppState
 import com.example.dictionary.model.data.DataModel
+import com.example.dictionary.model.datasource.database.DictionaryDatabase
+import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
+import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
+import java.util.concurrent.Executors
 
 class ListFragment : Fragment(), ListFragmentView {
-
-    companion object Factory {
-        fun newInstance(): Fragment = ListFragment()
-    }
 
     private val viewModel: ListFragmentViewModel by activityViewModels()
 
@@ -33,22 +34,48 @@ class ListFragment : Fragment(), ListFragmentView {
         savedInstanceState: Bundle?
     ): View {
         _binding = ListLayoutBinding.inflate(inflater, container, false)
-
-        viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
         return viewBinding.root
     }
 
-    private var adapter: MainAdapter? = null
-    private val onListItemClickListener: MainAdapter.OnListItemClickListener =
-        object : MainAdapter.OnListItemClickListener {
+    private var adapter: ListAdapter? = null
+    private val onListItemClickListener: ListAdapter.OnListItemClickListener =
+        object : ListAdapter.OnListItemClickListener {
             override fun onItemClick(data: DataModel) {
-                Toast.makeText(context, data.text, Toast.LENGTH_SHORT).show()
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(
+                        R.id.container,
+                        DetailsFragment.newInstance(
+                            data.text,
+                            toStringConverter(data.meanings),
+                            data.meanings?.get(0)?.imageUrl, data.isFavorite
+                        )
+                    )
+                    .addToBackStack("")
+                    .commit()
             }
         }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.mutableLiveData.observe(viewLifecycleOwner) { renderData(it) }
+
         viewBinding.searchButton.setOnClickListener { onSearchButtonClicked() }
+
+        viewBinding.historyButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, HistoryFragment.newInstance())
+                .addToBackStack("")
+                .commit()
+        }
+
+        viewBinding.favoritesButton.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, FavoritesFragment.newInstance())
+                .addToBackStack("")
+                .commit()
+        }
     }
 
     private fun onSearchButtonClicked() {
@@ -65,10 +92,7 @@ class ListFragment : Fragment(), ListFragmentView {
                     onErrorOccurred(getString(R.string.empty_server_response_on_success))
                 } else {
                     if (adapter == null) {
-                        viewBinding.mainActivityRecyclerview.layoutManager =
-                            LinearLayoutManager(context)
-                        viewBinding.mainActivityRecyclerview.adapter =
-                            MainAdapter(onListItemClickListener, dataModel)
+                        loadOnSuccess(dataModel)
                     } else {
                         adapter!!.setData(dataModel)
                     }
@@ -83,6 +107,13 @@ class ListFragment : Fragment(), ListFragmentView {
         }
     }
 
+    private fun loadOnSuccess(dataModel: List<DataModel>) {
+        viewBinding.mainActivityRecyclerview.layoutManager =
+            LinearLayoutManager(context)
+        viewBinding.mainActivityRecyclerview.adapter =
+            ListAdapter(onListItemClickListener, dataModel)
+    }
+
     private fun onErrorOccurred(error: String?) {
         Toast.makeText(context, "An error occurred: $error", Toast.LENGTH_SHORT).show()
     }
@@ -92,5 +123,9 @@ class ListFragment : Fragment(), ListFragmentView {
         val keyboard =
             requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboard.hideSoftInputFromWindow(viewBinding.editText.windowToken, 0)
+    }
+
+    companion object Factory {
+        fun newInstance(): Fragment = ListFragment()
     }
 }

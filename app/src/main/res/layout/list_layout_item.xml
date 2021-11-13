@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         tools:text="Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."/>
 
-    <View xmlns:android="http://schemas.android.com/apk/res/android"
+    <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/hairline"
         android:layout_marginTop="@dimen/margin_small"
