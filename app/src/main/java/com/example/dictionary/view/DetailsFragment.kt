@@ -85,7 +85,7 @@ class DetailsFragment: Fragment(), KoinComponent {
                 )
                 .transformations(CircleCropTransformation())
                 .build()
-                ImageLoader(requireContext()).execute(request)
+        ImageLoader(requireContext()).execute(request)
     }
 
     companion object Factory {

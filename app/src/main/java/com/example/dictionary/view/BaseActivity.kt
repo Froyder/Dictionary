@@ -1,9 +1,7 @@
 package com.example.dictionary.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dictionary.networkstatus.NetworkStatusInterface
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

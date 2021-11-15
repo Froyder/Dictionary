@@ -1,7 +1,7 @@
 package com.example.dictionary.view.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.dictionary.model.datasource.DataProvider
+import com.example.dataprovider.DataProvider
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject

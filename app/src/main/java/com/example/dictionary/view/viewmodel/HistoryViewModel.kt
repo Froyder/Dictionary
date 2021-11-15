@@ -3,8 +3,8 @@ package com.example.dictionary.view.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.model.datasource.DataProvider
+import com.example.dataprovider.DataProvider
+import com.example.model.DataModel
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -12,7 +12,7 @@ import timber.log.Timber
 
 class HistoryViewModel: ViewModel(), KoinComponent {
 
-    private val dataProvider: DataProvider by inject()
+    private val dataProvider: com.example.dataprovider.DataProvider by inject()
 
     private val _mutableLiveData = MutableLiveData<List<DataModel>>()
     val mutableLiveData: LiveData<List<DataModel>>

@@ -9,9 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.FavoritesLayoutBinding
-import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.FavoritesViewModel
+import com.example.model.DataModel
+import com.example.utils.toStringConverter
 
 class FavoritesFragment: Fragment() {
 
@@ -37,7 +37,7 @@ class FavoritesFragment: Fragment() {
                     .beginTransaction()
                     .replace(
                         R.id.container,
-                        DetailsFragment.newInstance(
+                            DetailsFragment.newInstance(
                             data.text,
                             toStringConverter(data.meanings),
                             data.meanings?.get(0)?.imageUrl, data.isFavorite
@@ -67,5 +67,4 @@ class FavoritesFragment: Fragment() {
     companion object Factory {
         fun newInstance(): Fragment = FavoritesFragment()
     }
-
 }

@@ -12,10 +12,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
-import com.example.dictionary.model.data.AppState
-import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.toStringConverter
 import com.example.dictionary.view.viewmodel.ListFragmentViewModel
+import com.example.model.AppState
+import com.example.model.DataModel
+import com.example.utils.toStringConverter
 
 class ListFragment : Fragment(), ListFragmentView {
 
@@ -41,7 +41,7 @@ class ListFragment : Fragment(), ListFragmentView {
                     .beginTransaction()
                     .replace(
                         R.id.container,
-                        DetailsFragment.newInstance(
+                            DetailsFragment.newInstance(
                             data.text,
                             toStringConverter(data.meanings),
                             data.meanings?.get(0)?.imageUrl, data.isFavorite

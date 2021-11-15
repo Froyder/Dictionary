@@ -2,9 +2,6 @@ package com.example.dictionary.view
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.example.dictionary.model.datasource.DataProvider
-import com.example.dictionary.networkstatus.NetworkStatusInterface
-import com.example.dictionary.presenter.PresentersFactory
 import com.example.dictionary.view.viewmodel.ViewModelFactory
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

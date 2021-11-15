@@ -46,6 +46,12 @@ android {
 }
 
 dependencies {
+
+    implementation(project(":model"))
+    implementation(project(":utils"))
+    implementation(project(":dataprovider"))
+    implementation(project(":database"))
+
     implementation (Dependencies.ANDROID_CORE_KTX_DEP)
     implementation (Dependencies.APPCOMPAT_DEP)
     implementation (Dependencies.MATERIAL_DEP)
@@ -63,13 +69,6 @@ dependencies {
     // Rx-Java
     implementation (Dependencies.RXJAVA2_DEP)
     implementation (Dependencies.RXJAVA2_RXANDROID_DEP)
-
-
-    // Retrofit 2
-    implementation (Dependencies.RETROFIT2_DEP)
-    implementation (Dependencies.RETROFIT2_GSON_CONVERTER_DEP)
-    implementation (Dependencies.INTERCEPTOR_DEP)
-    implementation (Dependencies.RETROFIT2_RXJAVA2_ADAPTER_DEP)
 
     //Dagger
     implementation (Dependencies.DAGGER_DEP)

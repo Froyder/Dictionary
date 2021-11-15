@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
-import com.example.dictionary.model.data.DataModel
-import com.example.dictionary.toStringConverter
+import com.example.model.DataModel
 
 class MainAdapter(
     private var onListItemClickListener: OnListItemClickListener,
@@ -40,8 +39,6 @@ class MainAdapter(
         fun bind(data: DataModel) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.findViewById<TextView>(R.id.header_textview_recycler_item).text = data.text
-//                itemView.findViewById<TextView>(R.id.description_textview_recycler_item).text =
-//                    toStringConverter(data.meanings)
                 itemView.setOnClickListener { openInNewWindow(data) }
             }
         }

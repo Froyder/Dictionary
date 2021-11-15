@@ -1,13 +1,11 @@
 package com.example.dictionary.presenter
 
-import com.example.dictionary.model.datasource.DataProviderInterface
 import com.example.dictionary.view.ListFragmentView
 import dagger.assisted.AssistedInject
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 
 class ListPresenter @AssistedInject constructor(
-    private val dataProvider: DataProviderInterface
+    private val dataProvider: com.example.dataprovider.DataProviderInterface
 ) : ListPresenterInterface {
 
     private var currentView: ListFragmentView? = null
