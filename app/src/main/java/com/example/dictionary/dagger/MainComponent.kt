@@ -2,7 +2,7 @@ package com.example.dictionary.dagger
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.dictionary.networkstatus.NetworkStatusInterface
+import com.example.utils.networkStatus.NetworkStatusInterface
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

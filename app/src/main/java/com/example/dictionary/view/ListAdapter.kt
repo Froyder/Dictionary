@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dictionary.R
-import com.example.dictionary.model.data.DataModel
+import com.example.model.DataModel
 
 class ListAdapter(
     private var onListItemClickListener: OnListItemClickListener,

@@ -1,7 +1,7 @@
 package com.example.dictionary.dagger
 
 import android.content.Context
-import com.example.dictionary.networkstatus.NetworkStatus
+import com.example.utils.networkStatus.NetworkStatus
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import timber.log.Timber

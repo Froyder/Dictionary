@@ -1,6 +1,6 @@
 package com.example.dictionary.view
 
-import com.example.dictionary.model.data.AppState
+import com.example.model.AppState
 
 interface ListFragmentView {
 
