@@ -1,15 +1,12 @@
 package com.example.dictionary.view.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.example.dataprovider.DataProvider
+import com.example.dataprovider.DataProviderInterface
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import timber.log.Timber
 
-class DetailsViewModel: ViewModel(), KoinComponent{
-
-    private val dataProvider: DataProvider by inject()
+class DetailsViewModel(private val dataProvider: DataProviderInterface): ViewModel(), KoinComponent{
 
     private val viewModelScope = CoroutineScope(
         Dispatchers.IO
@@ -36,5 +33,4 @@ class DetailsViewModel: ViewModel(), KoinComponent{
         viewModelScope.cancel()
         super.onCleared()
     }
-
 }

@@ -5,21 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.HistoryLayoutBinding
 import com.example.dictionary.view.viewmodel.HistoryViewModel
 import com.example.model.DataModel
 import com.example.utils.toStringConverter
-import kotlinx.coroutines.*
+import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
+import org.koin.java.KoinJavaComponent.getKoin
 
 class HistoryFragment: Fragment() {
 
+    private val koinScope: Scope by lazy { getKoin().createScope("historyScope", named(HISTORY_SCOPE))}
+    private val viewModel: HistoryViewModel by koinScope.inject()
+
     private var _binding: HistoryLayoutBinding? = null
     private val viewBinding get() = _binding!!
-
-    private val viewModel: HistoryViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +67,13 @@ class HistoryFragment: Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        koinScope.close()
+    }
+
     companion object Factory {
+        private const val HISTORY_SCOPE = "history_scope"
         fun newInstance(): Fragment = HistoryFragment()
     }
 }

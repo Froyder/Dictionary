@@ -16,10 +16,7 @@ class MainApplicationKoin : Application() {
             modules(
                 listOf(
                     application,
-                    listFragment,
-                    historyFragment,
-                    favoritesFragment,
-                    detailsFragment
+                    fragments
                 )
             )
         }

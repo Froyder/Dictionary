@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.ListLayoutBinding
@@ -16,10 +15,14 @@ import com.example.dictionary.view.viewmodel.ListFragmentViewModel
 import com.example.model.AppState
 import com.example.model.DataModel
 import com.example.utils.toStringConverter
+import org.koin.android.ext.android.getKoin
+import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
 class ListFragment : Fragment(), ListFragmentView {
 
-    private val viewModel: ListFragmentViewModel by activityViewModels()
+    private val koinScope: Scope by lazy {getKoin().createScope("listScope", named(LIST_SCOPE))}
+    private val viewModel: ListFragmentViewModel by koinScope.inject()
 
     private var _binding: ListLayoutBinding? = null
     private val viewBinding get() = _binding!!
@@ -121,7 +124,13 @@ class ListFragment : Fragment(), ListFragmentView {
         keyboard.hideSoftInputFromWindow(viewBinding.editText.windowToken, 0)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        koinScope.close()
+    }
+
     companion object Factory {
+        private const val LIST_SCOPE = "list_scope"
         fun newInstance(): Fragment = ListFragment()
     }
 }
