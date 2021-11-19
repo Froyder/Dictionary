@@ -5,20 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dictionary.R
 import com.example.dictionary.databinding.FavoritesLayoutBinding
 import com.example.dictionary.view.viewmodel.FavoritesViewModel
 import com.example.model.DataModel
 import com.example.utils.toStringConverter
+import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
+import org.koin.java.KoinJavaComponent.getKoin
 
 class FavoritesFragment: Fragment() {
 
+    private val koinScope: Scope by lazy {getKoin().createScope("favoritesScope", named(FAVORITES_SCOPE))}
+    private val viewModel: FavoritesViewModel by koinScope.inject()
+
     private var _binding: FavoritesLayoutBinding? = null
     private val viewBinding get() = _binding!!
-
-    private val viewModel: FavoritesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,7 +67,13 @@ class FavoritesFragment: Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        koinScope.close()
+    }
+
     companion object Factory {
+        private const val FAVORITES_SCOPE = "favorites_scope"
         fun newInstance(): Fragment = FavoritesFragment()
     }
 }

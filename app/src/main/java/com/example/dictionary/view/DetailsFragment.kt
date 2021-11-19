@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import coil.ImageLoader
 import coil.request.LoadRequest
 import coil.transform.CircleCropTransformation
@@ -16,8 +15,13 @@ import com.example.dictionary.R
 import com.example.dictionary.databinding.DetailsLayoutBinding
 import com.example.dictionary.view.viewmodel.DetailsViewModel
 import org.koin.core.component.KoinComponent
+import org.koin.core.qualifier.named
+import org.koin.core.scope.Scope
 
 class DetailsFragment: Fragment(), KoinComponent {
+
+    private val koinScope: Scope by lazy { getKoin().createScope("detailsScope", named(DETAILS_SCOPE))}
+    private val viewModel: DetailsViewModel by koinScope.inject()
 
     private var _binding: DetailsLayoutBinding? = null
     private val viewBinding get() = _binding!!
@@ -26,8 +30,6 @@ class DetailsFragment: Fragment(), KoinComponent {
     private val meanings: String by lazy { arguments?.getString(ARG_MEANINGS).orEmpty() }
     private val imageURL: String by lazy { arguments?.getString(ARG_URL).orEmpty() }
     private val status: String by lazy { arguments?.getString(ARG_FAVORITE).orEmpty() }
-
-    private val viewModel: DetailsViewModel by activityViewModels()
 
     private var isFavorite = false
 
@@ -88,6 +90,11 @@ class DetailsFragment: Fragment(), KoinComponent {
         ImageLoader(requireContext()).execute(request)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        koinScope.close()
+    }
+
     companion object Factory {
         private const val ARG_TEXT = "arg_text"
         private const val ARG_MEANINGS = "arg_meanings"
@@ -95,6 +102,7 @@ class DetailsFragment: Fragment(), KoinComponent {
         private const val ARG_FAVORITE = "false"
         private const val ACTIVE = R.drawable.ic_baseline_favorite_24
         private const val INACTIVE = R.drawable.ic_baseline_favorite_border_24
+        private const val DETAILS_SCOPE = "details_scope"
 
         fun newInstance(text: String?, meanings: String?, URL: String?, status: String?): Fragment {
             val fragment = DetailsFragment()

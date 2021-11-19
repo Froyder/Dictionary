@@ -3,16 +3,13 @@ package com.example.dictionary.view.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dataprovider.DataProvider
+import com.example.dataprovider.DataProviderInterface
 import com.example.model.AppState
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import timber.log.Timber
 
-class ListFragmentViewModel : ViewModel(), KoinComponent {
-
-    private val dataProvider: com.example.dataprovider.DataProvider by inject()
+class ListFragmentViewModel (private val dataProvider: DataProviderInterface) : ViewModel(), KoinComponent {
 
     private val _mutableLiveData = MutableLiveData<AppState>()
     val mutableLiveData: LiveData<AppState>
@@ -43,8 +40,8 @@ class ListFragmentViewModel : ViewModel(), KoinComponent {
     }
 
     override fun onCleared() {
+        super.onCleared()
         _mutableLiveData.value = AppState.Success(null)
         viewModelScope.cancel()
-        super.onCleared()
     }
 }
