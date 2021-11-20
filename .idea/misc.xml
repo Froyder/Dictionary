@@ -3,10 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ainm.xml" value="0.24259259259259258" />
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/anim_icon.xml" value="0.24259259259259258" />
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ed_logo.xml" value="0.11041666666666666" />
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ed_logo_loading_animation.xml" value="0.12916666666666668" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/favorite_button_selector.xml" value="0.2074074074074074" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.2074074074074074" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" value="0.2074074074074074" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.1" />
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/drawable/icon.xml" value="0.24259259259259258" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/font/sumana.xml" value="0.1" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/details_layout.xml" value="0.2" />
@@ -15,6 +20,7 @@
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/history_layout.xml" value="0.136" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/list_layout.xml" value="0.2" />
         <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/list_layout_item.xml" value="0.2" />
+        <entry key="..\:/CodingWithFun/Kotlin/Dictionary/app/src/main/res/layout/splash_logo_layout.xml" value="0.12158054711246201" />
       </map>
     </option>
   </component>

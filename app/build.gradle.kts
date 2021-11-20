@@ -9,9 +9,10 @@ android {
     buildToolsVersion = "30.0.3"
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId = "com.example.dictionary"
         minSdk = 29
-        targetSdk = 30
+        targetSdk = 31
         versionCode = 1
         versionName = "1.0"
 
@@ -97,4 +98,7 @@ dependencies {
     implementation (Dependencies.ROOM_RUNTIME_DEP)
     kapt (Dependencies.ROOM_COMPILER_DEP)
     implementation (Dependencies.ROOM_KTX_DEP)
+
+    implementation (Dependencies.SUPPORT_APPCOMPAT_DEP)
+    implementation (Dependencies.SUPPORT_DESIGN_DEP)
 }
