@@ -23,6 +23,8 @@ object Versions {
     const val RETROFIT2_RXJAVA2_ADAPTER = "1.0.0"
     const val RXJAVA2_VERSION = "2.2.20"
     const val RXJAVA2_RXANDROID_VERSION = "2.1.1"
+
+    const val SUPPORT_LIB_VERSION = "24.2.1"
 }
 
 object Dependencies {
@@ -69,4 +71,8 @@ object Dependencies {
 
     const val TIMBER_DEP = "com.jakewharton.timber:timber:${Versions.TIMBER_VERSION}"
     const val COIL_DEP = "io.coil-kt:coil:${Versions.COIL_VERSION}"
+
+    const val SUPPORT_APPCOMPAT_DEP = "com.android.support:appcompat-v7:${Versions.SUPPORT_LIB_VERSION}"
+    const val SUPPORT_DESIGN_DEP = "com.android.support:design:${Versions.SUPPORT_LIB_VERSION}"
+
 }

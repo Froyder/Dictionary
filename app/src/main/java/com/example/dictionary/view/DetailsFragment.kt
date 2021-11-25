@@ -1,11 +1,15 @@
 package com.example.dictionary.view
 
+import android.graphics.RenderEffect
+import android.graphics.Shader
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import coil.ImageLoader
@@ -42,6 +46,7 @@ class DetailsFragment: Fragment(), KoinComponent {
         return viewBinding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -72,7 +77,11 @@ class DetailsFragment: Fragment(), KoinComponent {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun useCoilToLoadPhoto(imageView: ImageView, imageLink: String) {
+
+        val blurEffect = RenderEffect.createBlurEffect(3f, 5f, Shader.TileMode.MIRROR)
+
         val request =
             LoadRequest.Builder(requireContext())
                 .data("https:$imageLink")
@@ -80,9 +89,11 @@ class DetailsFragment: Fragment(), KoinComponent {
                     onStart = {},
                     onSuccess = { result ->
                         imageView.setImageDrawable(result)
+                        imageView.setRenderEffect(blurEffect)
                     },
                     onError = {
                         imageView.setImageResource(R.drawable.ic_launcher_foreground)
+                        imageView.setRenderEffect(blurEffect)
                     }
                 )
                 .transformations(CircleCropTransformation())
