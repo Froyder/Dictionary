@@ -1,35 +1,41 @@
 package com.example.dictionary.presenter
 
+import com.example.dataprovider.DataProviderInterface
 import com.example.dictionary.view.ListFragmentView
+import com.example.model.AppState
+import com.example.model.DataModel
 import dagger.assisted.AssistedInject
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.*
+import timber.log.Timber
 
 class ListPresenter @AssistedInject constructor(
-    private val dataProvider: com.example.dataprovider.DataProviderInterface
-) : ListPresenterInterface {
+    private val dataProvider: DataProviderInterface,
+    private val currentView: ListFragmentView
+) : MainPresenterInterface {
 
-    private var currentView: ListFragmentView? = null
+    private val viewModelScope = CoroutineScope(
+        Dispatchers.IO
+                + SupervisorJob()
+                + CoroutineExceptionHandler { _, throwable ->
+            handleError(throwable)
+        })
 
-    override fun onAttach (listView: ListFragmentView) {
-        currentView = listView
-    }
-
-    private val compositeDisposable = CompositeDisposable()
+    private var job: Job? = null
 
     override fun getData(word: String) {
-//        compositeDisposable.addAll(
-//            dataProvider.getDataFromSource(word)
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe ({
-//                    currentView?.renderData(it) },
-//                    {
-//                        println("An error occurred: $it")
-//                    })
-//        )
+        job?.cancel()
+        job = viewModelScope.launch {
+            val dataList = dataProvider.getDataFromSource(word)
+            setData(dataList)
+        }
     }
 
-    override fun onDetach() {
-        compositeDisposable.clear()
-        currentView = null
+    override fun setData(dataList: List<DataModel>) {
+        currentView.renderData(AppState.Success(dataList))
+    }
+
+    override fun handleError(error: Throwable) {
+        currentView.renderData(AppState.Error(error))
+        Timber.i("Timber talks: An error occurred: $error")
     }
 }
